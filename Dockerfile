@@ -1,4 +1,4 @@
-FROM debian:10-slim
+FROM ubuntu:focal
 
 RUN apt update; apt upgrade -y; apt install nano ssh openssh-server python ansible -y
 

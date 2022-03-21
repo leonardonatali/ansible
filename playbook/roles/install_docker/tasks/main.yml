@@ -1,0 +1,40 @@
+---
+# tasks file for install_docker
+- name: "install libs"
+  apt:
+    name:
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
+      - build-essential
+    state: present
+    update_cache: true
+
+- name: "install apt key"
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: "add docker repository"
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu focal stable
+    state: present
+
+- name: "install docker-ce"
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-compose
+    state: present
+    update_cache: true
+
+- name: "add user to docker group"
+  shell:
+    cmd: "usermod -aG docker root"
+
+- name: "start docker service"
+  shell:
+    cmd: "/etc/init.d/docker start"

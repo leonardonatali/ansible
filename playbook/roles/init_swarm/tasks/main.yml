@@ -1,0 +1,10 @@
+---
+# tasks file for init_swarm
+- name: init swarm cluster
+  docker_swarm:
+    state: present
+  register: swarm_init
+
+- name: join
+  set_fact:
+    join_token_worker: "{{ swarm_init.swarm_facts.JoinTokens.Worker }}"

@@ -1,0 +1,17 @@
+---
+- hosts: all
+  roles:
+    - install_nginx
+    - install_docker
+
+- hosts: manager
+  roles:
+    - init_swarm
+
+- hosts: worker
+  roles:
+    - join_swarm
+
+- hosts: manager
+  roles:
+    - deploy_stack

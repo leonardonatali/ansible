@@ -3,6 +3,8 @@ services:
 
   control:
     build: .
+    ports:
+      - 22
     container_name: control
     command: [ "tail", "-f", "/dev/null" ]
     hostname: control
@@ -10,15 +12,34 @@ services:
     volumes:
       - .:/root/ansible
 
+  master:
+    build: .
+    ports:
+      - 2377
+      - 7946
+      - 4789
+    container_name: master
+    command: [ "tail", "-f", "/dev/null" ]
+    hostname: master
+    working_dir: /root/ansible
+
   node_1:
     build: .
-    container_name: node
+    ports:
+      - 2377
+      - 7946
+      - 4789
+    container_name: node_1
     command: [ "tail", "-f", "/dev/null" ]
     hostname: node
     working_dir: /root/ansible
 
   node_2:
     build: .
+    ports:
+      - 2377
+      - 7946
+      - 4789
     container_name: node_2
     command: [ "tail", "-f", "/dev/null" ]
     hostname: node_2
